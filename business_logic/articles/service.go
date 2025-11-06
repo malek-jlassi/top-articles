@@ -7,9 +7,8 @@ import (
 	"sort"
 	"sync"
 )
-// TopArticles returns the names of the top 'limit' articles sorted by comment count.
 func TopArticles(limit int) []string {
-	// Fetch the first page to get total number of pages
+
 	resp, err := http.Get(fmt.Sprintf(baseURL, 1))
 	if err != nil {
 		return nil
@@ -21,7 +20,6 @@ func TopArticles(limit int) []string {
 		return nil
 	}
 
-	// Fetch all pages concurrently
 	ch := make(chan []Article)
 	var wg sync.WaitGroup
 	for i := 1; i <= first.TotalPages; i++ {
@@ -33,13 +31,11 @@ func TopArticles(limit int) []string {
 		close(ch)
 	}()
 
-	// Aggregate all articles
 	all := make([]Article, 0)
 	for data := range ch {
 		all = append(all, data...)
 	}
 
-	// Prepare and sort articles by comment count
 	type namedArticle struct {
 		Name        string
 		NumComments int
@@ -52,7 +48,7 @@ func TopArticles(limit int) []string {
 		} else if a.StoryTitle != nil {
 			name = *a.StoryTitle
 		} else {
-			continue // skip if both are nil
+			continue
 		}
 		numComments := 0
 		if a.NumComments != nil {
@@ -64,7 +60,6 @@ func TopArticles(limit int) []string {
 		return processed[i].NumComments > processed[j].NumComments
 	})
 
-	// Return top 'limit' article names
 	result := make([]string, 0, limit)
 	for i := 0; i < limit && i < len(processed); i++ {
 		result = append(result, processed[i].Name)

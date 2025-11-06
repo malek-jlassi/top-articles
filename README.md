@@ -47,7 +47,7 @@ Top Articles:
 
 To change how many titles are shown, open `cmd/app/main.go` and change the number passed to `TopArticles(...)`.
 
-## 🧠 How the code works (in simple steps)
+## 🧠 How the code works
 1) `service.go` asks the API for page 1 to learn how many total pages exist.
 2) It loops over all pages one by one using `fetchPage(page)` from `repository.go`.
 3) It collects all articles, picks a title (`title` or `story_title`), and sets missing comment counts to 0.
@@ -55,7 +55,7 @@ To change how many titles are shown, open `cmd/app/main.go` and change the numbe
 
 This project uses a sequential approach (no goroutines/channels) to make the flow easy to follow.
 
-## 🧪 Run tests (optional)
+## 🧪 Run tests
 From the project root:
 ```sh
 go test ./business_logic/articles
