@@ -58,7 +58,7 @@ This project uses a sequential approach (no goroutines/channels) to make the flo
 ## 🧪 Run tests (optional)
 From the project root:
 ```sh
-go test ./...
+go test ./business_logic/articles
 ```
 
 **Author:** Malek JELASSI
