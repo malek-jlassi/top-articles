@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# top-articles
-=======
 # 📰 Top Articles
 
 This is a small Go project that fetches article data from a public API and prints the top N article titles sorted by number of comments.
@@ -13,15 +10,17 @@ This is a small Go project that fetches article data from a public API and print
 ## 🧱 Project Structure
 ```
 top-articles/
-├── business_logic/
-│   └── articles/
-│       ├── model.go         # Data structures (Article,APIResponse)
-│       ├── repository.go    # fetchPage to call the API
-│       └── service.go       # TopArticles Selection            │       └── service_test.go  # TopArticles unit testing
+├── Dockerfile                     # Container build
 ├── cmd/
 │   └── app/
-│       └── main.go          # Program entry: calls TopArticles and prints
-├── go.mod                   # Go module + version
+│       └── main.go                # Program entry: calls TopArticles and prints
+├── business_logic/
+│   └── articles/
+│       ├── model.go               # Data structures (Article, APIResponse)
+│       ├── repository.go          # HTTP fetch helpers
+│       ├── service.go             # TopArticles business logic
+│       └── service_test.go        # Unit tests for TopArticles
+├── go.mod                         # Go module + version
 └── README.md                
 ```
 
@@ -62,6 +61,5 @@ From the project root:
 go test ./...
 ```
 
-**Author:** Malek Jlassi
+**Author:** Malek JELASSI
 
->>>>>>> 563170d (feat: initial commit (top-articles))
