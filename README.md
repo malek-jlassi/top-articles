@@ -25,7 +25,7 @@ top-articles/
 ```
 
 ## ✅ Prerequisites
-- Install Go (1.21+ recommended): https://go.dev/dl/
+- Install Go (1.22+ recommended): https://go.dev/dl/
 - Windows, macOS, or Linux terminal
 
 ## ▶️ Run the app
@@ -49,11 +49,11 @@ To change how many titles are shown, open `cmd/app/main.go` and change the numbe
 
 ## 🧠 How the code works
 1) `service.go` asks the API for page 1 to learn how many total pages exist.
-2) It loops over all pages one by one using `fetchPage(page)` from `repository.go`.
+2) It fetches all pages concurrently using goroutines, a `sync.WaitGroup`, and a channel (`fetchPage(page)` in `repository.go`).
 3) It collects all articles, picks a title (`title` or `story_title`), and sets missing comment counts to 0.
 4) It sorts articles by comments (descending) and returns the top N names.
 
-This project uses a sequential approach (no goroutines/channels) to make the flow easy to follow.
+This project uses concurrency (goroutines + channels) to fetch pages in parallel, then aggregates and sorts the results.
 
 ## 🧪 Run tests
 From the project root:
